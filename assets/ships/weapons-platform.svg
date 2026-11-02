@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 48" role="img" aria-label="Weapons platform, top view">
+  <path d="M18 12h60v24H18z" fill="#779b78" stroke="#d1d6a1" stroke-width="2"/>
+  <path d="M24 8v4m48-4v4M24 36v5m48-5v5" stroke="#d9d5a6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M27 17h42v14H27z" fill="#304d49"/>
+  <circle cx="48" cy="24" r="8" fill="#b3bd7a" stroke="#e6d99d" stroke-width="1.5"/>
+  <path d="M48 13v22M37 24h22M40 16l16 16m0-16L40 32" stroke="#324c48" stroke-width="1.5"/>
+  <circle cx="48" cy="24" r="2.5" fill="#f1e8bb"/>
+</svg>

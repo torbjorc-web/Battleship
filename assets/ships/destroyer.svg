@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 48" role="img" aria-label="Destroyer, top view">
+  <path d="M10 24 25 14h46l15 10-15 10H25z" fill="#81a89b" stroke="#d7e8d7" stroke-width="2"/>
+  <path d="M31 18h31v12H31z" fill="#294e58"/>
+  <path d="M39 16h11v16H39z" fill="#d3d3aa"/>
+  <path d="M42 19h5v10h-5z" fill="#567b7b"/>
+  <path d="M66 21h9m-9 6h9" stroke="#dfc781" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

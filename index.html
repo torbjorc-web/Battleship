@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071a27">
+  <title>Battleships — Rescue Mission</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div class="handoff-screen" id="handoff-screen" role="dialog" aria-modal="true" aria-labelledby="handoff-title">
+    <div class="handoff-card">
+      <span class="handoff-kicker"><span class="status-light"></span> PRIVATE TURN HANDOFF</span>
+      <h1 id="handoff-title">Player 1, ready?</h1>
+      <p id="handoff-description">Player 1, press below when you are ready to set up your fleet.</p>
+      <button class="handoff-button" id="handoff-button" type="button">Player 1 — press to continue</button>
+      <p class="handoff-feedback">The board stays hidden until you continue.</p>
+    </div>
+  </div>
+
+  <div class="app-shell" id="app-shell" inert aria-hidden="true">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Battleships home">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>FLEET COMMAND</span>
+      </a>
+      <div class="top-actions">
+        <button class="icon-button sound-button" id="sound-toggle" type="button" aria-pressed="true" aria-label="Turn sound off">
+          <span class="sound-icon" aria-hidden="true">◖))</span>
+          <span id="sound-label">Sound on</span>
+        </button>
+        <button class="icon-button new-game-button" id="new-game" type="button">
+          <span aria-hidden="true">↻</span> New mission
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="intro" aria-labelledby="game-title">
+        <div class="intro-copy">
+          <p class="eyebrow"><span class="status-light"></span> <span id="game-mode-label">TWO PLAYER · PASS AND PLAY</span></p>
+          <h1 id="game-title">BATTLE<span>SHIPS</span></h1>
+          <p class="intro-text">Plot your fleet. Find theirs. Bring your sailor home.</p>
+        </div>
+        <div class="mission-tag" aria-label="Rescue mission, map 01">
+          <span class="mission-tag-top">MISSION</span>
+          <span class="mission-tag-number">01</span>
+          <span class="mission-tag-bottom">RESCUE</span>
+        </div>
+      </section>
+
+      <section class="command-strip" aria-live="polite">
+        <div class="command-icon" aria-hidden="true">⌖</div>
+        <div class="command-copy">
+          <span class="command-label" id="phase-label">FLEET DEPLOYMENT</span>
+          <p id="game-message">Place your ships on the sea. Choose a direction, then select a starting square.</p>
+        </div>
+        <span class="timer-display" id="turn-timer-display" aria-live="off" hidden></span>
+        <span class="turn-indicator" id="turn-indicator"><span class="status-light"></span> YOUR MOVE</span>
+      </section>
+
+      <section class="fleet-setup" id="fleet-setup" aria-label="Fleet setup controls">
+        <div class="setup-heading">
+          <div>
+            <p class="eyebrow">PREPARE FOR LAUNCH</p>
+            <h2 id="setup-player-title">Player 1's fleet</h2>
+          </div>
+          <div class="opponent-controls">
+            <label class="mode-control" for="opponent-type">
+              <span>PLAYER 2 IS</span>
+              <select id="opponent-type">
+                <option value="human">Human</option>
+                <option value="computer">Computer</option>
+              </select>
+            </label>
+            <label class="mode-control" id="difficulty-control" for="computer-difficulty" hidden>
+              <span>DIFFICULTY</span>
+              <select id="computer-difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="extra-hard">Extra hard</option>
+              </select>
+              <small class="difficulty-note" id="difficulty-note" hidden>Learns locally from previous matches.</small>
+            </label>
+            <label class="mode-control" for="turn-timer">
+              <span>TURN TIMER</span>
+              <select id="turn-timer">
+                <option value="0">Off</option>
+                <option value="30">30 seconds</option>
+                <option value="60">60 seconds</option>
+                <option value="90">90 seconds</option>
+                <option value="120">2 minutes</option>
+                <option value="180">3 minutes</option>
+              </select>
+            </label>
+          </div>
+          <div class="setup-metrics">
+            <span class="fleet-progress" id="fleet-progress">0 / 5 PLACED</span>
+            <span class="sailor-progress" id="sailor-progress">SAILOR · CHOOSE ISLAND</span>
+          </div>
+        </div>
+        <div class="navy-pickers" aria-label="Choose historical navies">
+          <label class="navy-control" for="player1-navy">
+            <span>PLAYER 1 NAVY</span>
+            <select id="player1-navy">
+              <option value="usa" selected>United States · US Navy</option>
+              <option value="uk">United Kingdom · Royal Navy</option>
+              <option value="japan">Japan · Imperial Japanese Navy</option>
+              <option value="germany">Germany · WWII Kriegsmarine</option>
+              <option value="soviet">Soviet Union · Soviet Navy</option>
+            </select>
+          </label>
+          <label class="navy-control" id="player2-navy-control" for="player2-navy">
+            <span id="player2-navy-label">PLAYER 2 NAVY</span>
+            <select id="player2-navy">
+              <option value="usa">United States · US Navy</option>
+              <option value="uk">United Kingdom · Royal Navy</option>
+              <option value="japan" selected>Japan · Imperial Japanese Navy</option>
+              <option value="germany">Germany · WWII Kriegsmarine</option>
+              <option value="soviet">Soviet Union · Soviet Navy</option>
+            </select>
+          </label>
+          <p class="navy-note" id="navy-note">Ship names are historical; grid lengths are balanced for play.</p>
+        </div>
+        <div class="setup-content">
+          <div class="ship-roster" id="ship-roster" aria-label="Ships to deploy"></div>
+          <div class="setup-actions">
+            <div class="orientation-control">
+              <span class="control-label">SHIP DIRECTION</span>
+              <button class="orientation-button" id="orientation-button" type="button" aria-label="Change ship direction">
+                <span class="orientation-arrow" id="orientation-arrow" aria-hidden="true">↓</span>
+                <span id="orientation-label">Vertical</span>
+                <span class="rotate-symbol" aria-hidden="true">↻</span>
+              </button>
+              <span class="control-hint">Vertical or diagonal</span>
+            </div>
+            <div class="deploy-actions">
+              <button class="text-button" id="randomize-fleet" type="button">Auto deploy</button>
+              <button class="launch-button" id="launch-game" type="button" disabled>Finish setup <span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="battlefield" aria-label="Battle maps">
+        <article class="map-panel own-panel">
+          <header class="map-header">
+            <div class="map-heading">
+              <span class="map-kicker" id="own-kicker">PLAYER 1 · FRIENDLY WATERS</span>
+              <div class="map-title-line"><span class="navy-badge navy-usa" id="own-badge">USN</span><h2><span id="own-title">Player 1's field</span> <span class="visibility-tag">YOUR FLEET</span></h2></div>
+            </div>
+            <div class="map-status"><span class="status-dot friendly"></span><span id="own-status">YOUR FLEET</span></div>
+          </header>
+          <div class="board-wrap">
+            <div class="board-grid" id="player-board" role="grid" aria-label="Player 1's field"></div>
+          </div>
+          <footer class="map-footer">
+            <span><i class="legend-ship"></i> Your ships</span>
+            <span><i class="legend-person">♟</i> Captured sailor</span>
+            <span><i class="legend-impact"></i> Incoming hit</span>
+          </footer>
+        </article>
+
+        <div class="center-connector" aria-hidden="true">
+          <span class="connector-line"></span>
+          <span class="radar-mark">✣</span>
+          <span class="connector-line"></span>
+        </div>
+
+        <article class="map-panel enemy-panel">
+          <header class="map-header">
+            <div class="map-heading">
+              <span class="map-kicker" id="target-kicker">PLAYER 2 · ENEMY WATERS</span>
+              <div class="map-title-line"><span class="navy-badge navy-japan" id="target-badge">IJN</span><h2><span id="target-title">Player 2's field</span> <span class="visibility-tag hidden-tag">FLEET HIDDEN</span></h2></div>
+            </div>
+            <div class="map-status"><span class="status-dot hostile"></span><span id="target-status">UNKNOWN FLEET</span></div>
+          </header>
+          <div class="board-wrap">
+            <div class="board-grid enemy-grid" id="enemy-board" role="grid" aria-label="Player 2's field"></div>
+          </div>
+          <footer class="map-footer enemy-footer">
+            <span><i class="legend-target">⌖</i> Select a sea square to fire</span>
+            <span><i class="legend-impact"></i> Confirmed hit</span>
+            <span><i class="legend-miss"></i> Miss</span>
+          </footer>
+        </article>
+      </section>
+
+      <section class="lower-panels">
+        <article class="info-panel fleet-status-panel">
+          <div class="panel-title-row">
+            <div>
+              <p class="eyebrow">SHIP STATUS</p>
+              <h2>Fleet report</h2>
+            </div>
+            <span class="report-code">FC / 15×10</span>
+          </div>
+          <div class="fleet-report" id="fleet-report"></div>
+        </article>
+
+        <article class="info-panel log-panel">
+          <div class="panel-title-row">
+            <div>
+              <p class="eyebrow">COMMS CHANNEL</p>
+              <h2>Mission log</h2>
+            </div>
+            <span class="live-label"><span class="status-light"></span> LIVE</span>
+          </div>
+          <ol class="event-log" id="event-log" aria-live="polite" aria-relevant="additions"></ol>
+        </article>
+      </section>
+
+      <footer class="page-footer">
+        <span>RESCUE MISSION · 15 COLUMNS × 10 ROWS</span>
+        <span>DEPLOY VERTICALLY OR DIAGONALLY · SINK THE FLEET · FIND THE SAILOR</span>
+      </footer>
+    </main>
+  </div>
+  <script src="js/config.js" defer></script>
+  <script src="js/audio.js" defer></script>
+  <script src="js/ai.js" defer></script>
+  <script src="js/timer.js" defer></script>
+  <script src="js/game.js" defer></script>
+</body>
+</html>

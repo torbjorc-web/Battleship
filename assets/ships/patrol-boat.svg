@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 48" role="img" aria-label="Patrol boat, top view">
+  <path d="M9 24 25 13h48l14 11-14 11H25z" fill="#73a6a6" stroke="#d5e8d8" stroke-width="2"/>
+  <path d="M31 17h31v14H31z" fill="#294f5a"/>
+  <path d="M39 18h14v12H39z" fill="#c4d2b2"/>
+  <path d="M43 20h7v8h-7z" fill="#49737a"/>
+  <path d="M26 18 18 15m8 18-8 3" stroke="#b5d6d4" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M71 21h7m-7 6h7" stroke="#ecd39a" stroke-width="1.4" stroke-linecap="round"/>
+</svg>

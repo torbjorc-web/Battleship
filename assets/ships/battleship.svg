@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 48" role="img" aria-label="Battleship, top view">
+  <path d="M8 24 19 8h58l11 16-11 16H19z" fill="#6e9292" stroke="#d7e4d7" stroke-width="2"/>
+  <path d="M22 17h49v14H22z" fill="#304f54"/>
+  <path d="M33 17v14m16-14v14m16-14v14" stroke="#8eaaa0" stroke-width="1.5"/>
+  <circle cx="31" cy="24" r="5" fill="#dfc784" stroke="#233d46" stroke-width="1.5"/>
+  <circle cx="51" cy="24" r="5" fill="#dfc784" stroke="#233d46" stroke-width="1.5"/>
+  <circle cx="70" cy="24" r="4" fill="#dfc784" stroke="#233d46" stroke-width="1.5"/>
+  <path d="M26 24h10m10 0h10m9 0h9" stroke="#f3e4b5" stroke-width="1.4"/>
+</svg>

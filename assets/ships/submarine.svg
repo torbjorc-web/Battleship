@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 48" role="img" aria-label="Submarine, top view">
+  <path d="M8 24c8-10 19-14 39-14s31 4 41 14c-10 10-21 14-41 14S16 34 8 24z" fill="#508b83" stroke="#c4e0c9" stroke-width="2"/>
+  <path d="M28 19h39v10H28z" fill="#1b464d"/>
+  <path d="M47 15v18m0-9 10-6v12z" fill="#92bda8" stroke="#d1e7d2" stroke-width="1.3"/>
+  <circle cx="24" cy="24" r="2" fill="#dddaaa"/>
+  <path d="M10 18 5 15m5 18-5 3" stroke="#93b5ab" stroke-width="1.6" stroke-linecap="round"/>
+</svg>
